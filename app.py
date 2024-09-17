@@ -12,20 +12,20 @@ def home():
 @app.route('/logar', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        login_user = request.form['loginUser']
+        login_user = request.form['loginUser'] #Captura os dados enviados no formulário de login
         senha = request.form['senha']
         
         conn = get_db_connection()
         try:
-            cur = conn.cursor()
+            cur = conn.cursor() #Executa a consulta SQL para verificar se o login e senha existem no banco.
             cur.execute('SELECT * FROM users WHERE loginUser = %s AND senha = %s', (login_user, senha))
-            user = cur.fetchone()
+            user = cur.fetchone() #Retorna o primeiro resultado encontrado.
         finally:
             cur.close()
             conn.close()
         
         if user:
-            session['loginUser'] = login_user
+            session['loginUser'] = login_user #Armazena as informações de login e tipo de usuário na sessão.
             session['tipoUser'] = user[2]
             return redirect(url_for('home'))
         else:
@@ -44,7 +44,7 @@ def register_user():
         try:
             cur = conn.cursor()
             cur.execute('INSERT INTO users (loginUser, senha, tipoUser) VALUES (%s, %s, %s)', (login_user, senha, tipo_user))
-            conn.commit()
+            conn.commit() #Confirma a inserção no banco de dados.
         finally:
             cur.close()
             conn.close()
@@ -55,7 +55,7 @@ def register_user():
 
 @app.route('/cadastrar/produto', methods=['GET', 'POST'])
 def register_product():
-    if 'loginUser' not in session:
+    if 'loginUser' not in session: #Verifica se o usuário está logado
         return redirect(url_for('login'))
     
     if request.method == 'POST':
@@ -87,7 +87,7 @@ def register_product():
 
 @app.route('/logout')
 def logout():
-    """Faz logout do usuário e redireciona para a página de login."""
+    #Faz logout do usuário e redireciona para a página de login.
     session.pop('loginUser', None)
     session.pop('tipoUser', None)
     return redirect(url_for('login'))
