@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <div class="topnav" id="myTopnav">
+        <a href="/" class="active">Home</a>
+        <a href="/cadastrar">Cadastrar Usuário</a>
+        <a href="/cadastrar/produto">Cadastrar Produto</a>
+        <a href="/logar">Logar</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+
+    <div class="container">
+        <h1>Bem-vindo {{ session['loginUser'] }}!</h1>
+        
+        <div class="btn-group">
+            <button onclick="window.location.href='/cadastrar/produto'">Cadastrar Produto</button>
+            <button onclick="window.location.href='/logout'">Deslogar</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
