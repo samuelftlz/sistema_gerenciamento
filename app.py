@@ -33,6 +33,7 @@ def login():
     
     return render_template('login.html')
 
+
 @app.route('/cadastrar', methods=['GET', 'POST'])
 def register_user():
     if request.method == 'POST':
@@ -84,6 +85,16 @@ def register_product():
         
     
     return render_template('register_product.html')
+
+@app.route('/produtos')
+def listar_produtos():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT nome, qtde, preco FROM produtos;")
+    produtos = cur.fetchall()
+    cur.close()
+    conn.close()
+    return render_template('list_products.html', produtos=produtos)
 
 @app.route('/logout')
 def logout():

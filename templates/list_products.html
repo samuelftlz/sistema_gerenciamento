@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="topnav" id="myTopnav">
+        <a href="/" class="active">Home</a>
+        <a href="/cadastrar">Cadastrar</a>
+        <a href="/cadastrar/produto">Cadastrar Produto</a>
+        <a href="/logar">Logar</a>
+        <a href="/produtos">Listar Produtos</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+
+    <div class="container">
+        <h2>Lista de Produtos</h2>
+        {% if produtos %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome do Produto</th>
+                        <th>Quantidade</th>
+                        <th>Preço (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produto in produtos %}
+                        <tr>
+                            <td>{{ produto[0] }}</td>
+                            <td>{{ produto[1] }}</td>
+                            <td>{{ "%.2f"|format(produto[2]) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Nenhum produto cadastrado.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+</body>
+</html>
