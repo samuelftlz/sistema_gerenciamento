@@ -4,10 +4,11 @@ from psycopg2 import sql
 #Estabelecendo a conexao com o bd.
 def get_db_connection():
     conn = psycopg2.connect(
-        host="dpg-crl0hgaj1k6c738lo0lg-a.oregon-postgres.render.com",
-        database="sistema_gerenciamento_3x39",
-        user="sistema_gerenciamento_3x39_user",
-        password="gwqbHAuqt1R8NsRWXoiP5QPjbdEQhvKV"
+        host="localhost",
+        database="sistema_gerenciamento",
+        user="postgres",
+        password="123456"
+        
     )
     return conn
 

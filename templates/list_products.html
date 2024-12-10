@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,52 +7,35 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="topnav" id="myTopnav">
+    <div class="topnav">
         <a href="/" class="active">Home</a>
-        <a href="/cadastrar">Cadastrar</a>
+        <a href="/cadastrar">Cadastrar Usuário</a>
         <a href="/cadastrar/produto">Cadastrar Produto</a>
-        <a href="/logar">Logar</a>
-        <a href="/produtos">Listar Produtos</a>
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-            <i class="fa fa-bars"></i>
-        </a>
     </div>
 
-    <div class="container">
-        <h2>Lista de Produtos</h2>
-        {% if produtos %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome do Produto</th>
-                        <th>Quantidade</th>
-                        <th>Preço (R$)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for produto in produtos %}
-                        <tr>
-                            <td>{{ produto[0] }}</td>
-                            <td>{{ produto[1] }}</td>
-                            <td>{{ "%.2f"|format(produto[2]) }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>Nenhum produto cadastrado.</p>
-        {% endif %}
-    </div>
+    <h1>Lista de Produtos</h1>
 
-    <script>
-        function myFunction() {
-            var x = document.getElementById("myTopnav");
-            if (x.className === "topnav") {
-                x.className += " responsive";
-            } else {
-                x.className = "topnav";
-            }
-        }
-    </script>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Quantidade</th>
+            <th>Preço</th>
+            <th>Comprar</th>
+        </tr>
+        {% for produto in produtos %}
+        <tr>
+            <td>{{ produto[1] }}</td>
+            <td>{{ produto[2] }}</td>
+            <td>{{ produto[3] }}</td>
+            <td>
+                <form action="/comprar/{{ produto[0] }}" method="post">
+                    <input type="number" name="quantidade" placeholder="Qtd" required>
+                    <button type="submit">Comprar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
 </body>
 </html>

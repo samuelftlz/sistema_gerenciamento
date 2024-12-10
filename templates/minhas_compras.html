@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Compras</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="topnav">
+        <a href="/" class="active">Home</a>
+        <a href="/cadastrar">Cadastrar Usuário</a>
+        <a href="/cadastrar/produto">Cadastrar Produto</a>
+        <a href="/logar">Logar</a>
+        <a href="/listar_produtos">Listar Produtos</a>
+        <a href="/minhas_compras">Minhas Compras</a>
+    </div>
+
+    <h1>Minhas Compras</h1>
+
+    {% if compras %}
+        <table>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Preço</th>
+                <th>Data da Compra</th>
+            </tr>
+            {% for compra in compras %}
+            <tr>
+                <td>{{ compra[0] }}</td> <!-- Nome do produto -->
+                <td>{{ compra[1] }}</td> <!-- Quantidade -->
+                <td>{{ compra[2] }}</td> <!-- Preço -->
+                <td>{{ compra[3] }}</td> <!-- Data da compra -->
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Você não tem compras registradas.</p>
+    {% endif %}
+
+</body>
+</html>
